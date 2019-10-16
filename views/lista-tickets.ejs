@@ -1,0 +1,71 @@
+<% include header.ejs %>
+
+
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-table"></i>
+    Data Table Example</div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Cliente</th>
+            <th>Producto</th>
+            <th>Titulo</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>Fecha</th>
+            <th>Cliente</th>
+            <th>Producto</th>
+            <th>Titulo</th>
+            <th>Estado</th>
+          </tr>
+        </tfoot>
+        <tbody>
+          <% data.forEach(function(ticket){ %>
+            <tr id="<%= ticket.id %>">
+              <td><%= ticket.fecha %></td>
+              <td><%= ticket.cliente %></td>
+              <td><%= ticket.producto %></td>
+              <td><%= ticket.titulo %></td>
+              <td><%= ticket.estado %></td>
+            </tr>
+          <% }) %>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>
+
+
+
+
+<% include footer.ejs %>
+<script type="text/javascript">
+  var tabla = $('#dataTable').DataTable({
+        "order": [[ 0, "desc" ]],
+        "language": {
+        "lengthMenu": "_MENU_ filas",
+        "info": "Ver página _PAGE_ de _PAGES_",
+        "search": "Buscar:",
+        "paginate": {
+        "first":      "Primera",
+        "last":       "Última",
+        "next":       ">>",
+        "previous":   "<<"
+    },
+    }
+    } );
+
+    tabla.columns.adjust().draw( );
+    $('#dataTable tbody').on( 'click', 'tr', function () {
+     window.location.href = "/ticket/"+tabla.row( this ).node().id;
+   } );
+</script>
