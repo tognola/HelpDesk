@@ -1,0 +1,80 @@
+<% include ../header.ejs %>
+<div class="card mb-3">
+  <div class="card-header">
+    Nuevo ticket
+  </div>
+  <div class ="card-body">
+
+    <form method ="post" action="<%= data.id == null ? "nuevo" : "cerrar" %>">
+      <% if(data.id != null){ %>
+        <div class="form-group">
+          <label for="viaje">ID Viaje</label>
+          <input readonly="readonly" class="form-control" name ="viaje" id="viaje" value ="<%= data.id %>"></input>
+        </div>
+        <%} %>
+      <div class="form-group">
+        <label for="cliente_id">Cliente</label>
+        <select class="form-control" id="cliente_id" name="cliente_id">
+          <option selected>Elegir...</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="producto_id">Producto</label>
+        <select class="form-control" id="producto_id" name ="producto_id">
+          <option selected>Elegir...</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="titulo">Problema</label>
+        <input class="form-control" name ="titulo" id="titulo" value ="<%= data.id == null ? "" : data.ticket_id %>"></input>
+      </div>
+      <div class="form-group">
+        <label for="comentario">Comentario</label>
+        <textarea class="form-control" name ="comentario" id="comentario" rows="3"></textarea>
+      </div>
+      <%= data.id == null ? "" : "Iniciado el "+new Date(data.inicio).toLocaleDateString()+ " a las "+ new Date(data.inicio).toLocaleTimeString()%><br />
+      <input type="submit" value="<%= data.id == null ? "Crear ticket" : "Finalizar viaje" %>">
+
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+
+    fetch("../clientes").then((response) => {
+      return response.json()
+    }).then((data) => {cargarClientes(data)});
+
+    $("#cliente_id").change(() => {
+      var cliente = $("#cliente_id").val();
+      fetchCliente(cliente)
+    });
+
+    var fetchCliente = function(cliente){
+      fetch("../productos/"+cliente).then((response) => {
+        return response.json()
+      }).then((data) => {cargarProductos(data)});
+    }
+
+    var cargarClientes = function(clientes){
+      clientes.forEach((cliente) => {
+        $("#cliente_id").append("<option value=\""+cliente.id+"\">"+cliente.nombre+"</option>")
+      })
+      <%- data.id == null ? "" : "$(\"#cliente_id\").val("+data.cliente_id+"); fetchCliente("+data.cliente_id+")"
+        %>
+    }
+
+    var cargarProductos = function(data){
+      $('#producto_id').removeAttr('disabled');
+
+      data.forEach((producto) => {
+        $("#producto_id").append("<option value=\""+producto.id+"\">"+producto.nombre+"</option>")
+        $("#producto_id").val(producto.id);
+      })
+    }
+  });
+
+</script>
+
+<% include ../footer.ejs %>

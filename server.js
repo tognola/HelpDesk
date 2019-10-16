@@ -64,7 +64,7 @@ app.get('/', function(req,res){
     res.redirect('/login')
     console.log(req.session.user)
   }else{
-    res.render('blank');
+    res.redirect('../ticket');
     console.log(req.session)
   }
 })
