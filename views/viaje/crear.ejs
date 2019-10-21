@@ -5,7 +5,6 @@
   </div>
   <div class ="card-body">
 
-<%= data.id %>
     <form method ="post" action="<%= data.id == null ? "nuevo" : "cerrar" %>">
       <% if(data.id != null){ %>
         <div class="form-group">
@@ -28,6 +27,14 @@
         <select class="form-control" id="producto_id" name ="producto_id">
           <option selected>Elegir...</option>
         </select>
+      </div>
+      <div class="form-group">
+        <label for="km_inicio">Km. inicial:</label>
+        <input class="form-control" name ="km_inicio" id="km_inicio" value ="<%= data.km_inicio == null ? "" : data.km_inicio %>"></input>
+      </div>
+      <div class="form-group">
+        <label for="km_fin">Km. final:</label>
+        <input class="form-control" name ="km_fin" id="km_fin" value ="<%= data.km_fin == null ? "" : data.km_final %>"></input>
       </div>
       <div class="form-group">
         <label for="comentario">Comentario</label>

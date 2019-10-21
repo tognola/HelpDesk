@@ -29,7 +29,7 @@
         <tbody>
           <% data.forEach(function(ticket){ %>
             <tr id="<%= ticket.id %>">
-              <td><%= ticket.fecha %></td>
+              <td><%= (new Date(ticket.fecha)).toLocaleDateString('es-AR').replace(/-/g,'/') %></td>
               <td><%= ticket.cliente %></td>
               <td><%= ticket.producto %></td>
               <td><%= ticket.titulo %></td>
@@ -40,7 +40,7 @@
                   break;
                   case "Abierto": %><span class="badge badge-info">
                   <% break;
-                  case "Cerrado": %><span class="badge badge-succes">
+                  case "Resuelto": %><span class="badge badge-success">
                   <% break;
                 } %>
                 <%= ticket.estado%></span>
@@ -60,7 +60,7 @@
 <% include ../footer.ejs %>
 <script type="text/javascript">
   var tabla = $('#dataTable').DataTable({
-        "order": [[ 0, "asc" ]],
+        "order": [[ 0, "desc" ]],
         "language": {
         "lengthMenu": "_MENU_ filas",
         "info": "Ver página _PAGE_ de _PAGES_",

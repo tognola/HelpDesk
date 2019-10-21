@@ -7,10 +7,10 @@
 
     <form method ="post" action="<%= data.id == null ? "nuevo" : "cerrar" %>">
       <% if(data.id != null){ %>
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="viaje">ID Viaje</label>
           <input readonly="readonly" class="form-control" name ="viaje" id="viaje" value ="<%= data.id %>"></input>
-        </div>
+        </div> -->
         <%} %>
       <div class="form-group">
         <label for="cliente_id">Cliente</label>
@@ -32,8 +32,7 @@
         <label for="comentario">Comentario</label>
         <textarea class="form-control" name ="comentario" id="comentario" rows="3"></textarea>
       </div>
-      <%= data.id == null ? "" : "Iniciado el "+new Date(data.inicio).toLocaleDateString()+ " a las "+ new Date(data.inicio).toLocaleTimeString()%><br />
-      <input type="submit" value="<%= data.id == null ? "Crear ticket" : "Finalizar viaje" %>">
+      <input type="submit" value="Crear ticket">
 
     </form>
   </div>

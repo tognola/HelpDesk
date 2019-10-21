@@ -1,0 +1,48 @@
+<% include ../header.ejs %>
+<div class="card mb-3">
+  <div class="card-header">
+    Nuevo tarea
+  </div>
+  <div class ="card-body">
+
+    <form method ="post" action="<%= data.id == null ? "nuevo" : "cerrar" %>">
+      <% if(data.id != null){ %>
+        <div class="form-group">
+          <label for="tarea">ID Tarea</label>
+          <input readonly="readonly" class="form-control" name ="tarea" id="tarea" value ="<%= data.id %>"></input>
+        </div>
+        <%} %>
+      <div class="form-group">
+        <label for="ticket_id">N° Ticket</label>
+        <input readonly="readonly" class="form-control" name ="ticket_id" id="ticket_id" value ="<%= data.ticket_id %>"></input>
+      </div>
+      <div class="form-group">
+        <label for="accion">Acción realizada</label>
+        <input class="form-control" name ="accion" id="accion" value ="<%= data.accion == null?  "" : data.accion %>"></input>
+      </div>
+      <div class="form-group">
+        <label for="observacion">Comentarios</label>
+        <textarea class="form-control" name ="observacion" id="observacion" rows="3" value ="<%= data.observacion == null? "" : data.observacion %>"></textarea>
+      </div>
+
+      <% if(data.id != null){ %>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="resuelto" name="resuelto">
+        <label class="form-check-label" for="resuelto">Cerrar ticket</label>
+      </div>
+      <%} %>
+      <%= data.id == null ? "" : "Iniciado el "+new Date(data.inicio).toLocaleDateString()+ " a las "+ new Date(data.inicio).toLocaleTimeString()%><br />
+      <input type="submit" value="<%= data.id == null ? "Iniciar tarea" : "Finalizar" %>">
+
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+
+  });
+
+</script>
+
+<% include ../footer.ejs %>

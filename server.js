@@ -5,16 +5,18 @@ var api = require('./controladores/listas')
 var cargar = require('./controladores/cargar')
 var ticket = require('./controladores/ticketControlador')
 var viaje = require('./controladores/viajeControlador')
+var tarea = require('./controladores/tareaControlador')
 
 
 var app = express();
 app.set('view engine', 'ejs');
 
-app.use(cors()).use(express.urlencoded()).use(express.json()).use(express.urlencoded());
+app.use(cors()).use(express.urlencoded()).use(express.json());
 ;
 app.use('/vendor',express.static('vendor'));
 app.use('/css',express.static('css'));
 app.use('/js',express.static('js'));
+app.use('/template',express.static('template'));
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -24,40 +26,7 @@ app.use(session({
 
 ticket(app);
 viaje(app);
-
-
-// var nodemailer = require('nodemailer');
-// process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-//
-// var transporter = nodemailer.createTransport({
-//  service: 'gmail',
-//  auth: {
-//         user: 'backupmodulab@gmail.com',
-//         pass: 'Wm23361wm'
-//     }
-// });
-//
-
-// app.post('/send', function(req,res){
-//   console.log(req.body);
-//
-//   const mailOptions = {
-//   from: 'backupmodulab@gmail.com', // sender address
-//   to: 'tognola08@gmail.com', // list of receivers
-//   subject: 'Subject of your email', // Subject line
-//   html: '<p>Your html here</p>'// plain text body
-// };
-
-// transporter.sendMail(mailOptions, function (err, info) {
-//    if(err)
-//      console.log(err)
-//    else
-//      console.log(info);
-// });
-//
-//
-//   res.sendStatus(200);
-// })
+tarea(app);
 
 app.get('/', function(req,res){
   if(req.session.user === undefined){
