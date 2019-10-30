@@ -48,13 +48,8 @@
 
   </div>
   <div class="card-footer small text-muted">
-    <div class="row">
-      <div class="col-6">
-        <%= data.producto %></div>
-      </div>
-      <div class="col" align="right">
-          <a class="btn btn-primary" role="button" href="../tarea/crear?ticket_id=<%= data.id %>">Agregar tarea</a>
-      </div>
+    <%= data.producto %>
+      <a class="btn btn-primary float-xl-right" role="button" href="../tarea/crear?ticket_id=<%= data.id %>">Agregar tarea</a>
     </div>
 
 </div>
