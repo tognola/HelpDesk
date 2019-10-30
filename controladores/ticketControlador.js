@@ -65,7 +65,7 @@ module.exports = function(app){
     con.query('INSERT INTO ticket SET ?', data, (err, resultado) => {
       if(!err){
         res.redirect('../ticket');
-        console.log(resultado)
+        data.ticket_id = resultado.insertId;
 
         con.query('select nombre from cliente where id = ?', data.cliente_id, (err, resp)=>{
           data.cliente = resp[0].nombre;
