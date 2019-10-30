@@ -48,9 +48,8 @@ app.get('/productos/:cliente', api.listarProductos)
 app.get('/clientes', api.listarClientes)
 //app.get('/tickets', api.listarTickets)
 
-app.post('/nuevo_ticket', cargar.nuevoTicket);
-app.post('/nuevo_viaje', cargar.nuevoViaje);
 app.post('/login', cargar.login);
+app.get('/logout', cargar.logout);
 
 
 app.listen(8888, function(){

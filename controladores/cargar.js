@@ -1,39 +1,6 @@
 var con = require('./bd');
 var md5 = require('md5');
 var moment = require('moment');
-var Rmd5 = require('reverse-md5');
-var rmd5 = Rmd5({
-	lettersUpper: false,
-	lettersLower: true,
-	numbers: true,
-	special: false,
-	whitespace: true,
-	maxLen: 12
-});
-
-
-var nuevoTicket = function(req, res){
-  con.query('INSERT INTO ticket SET ?', req.body, (err, resultado) => {
-  if(err) {console.log(err); res.sendStatus(404)}
-  else{console.log(req.body);  res.sendStatus(200)}
-  });
-}
-
-var nuevoViaje = function(req, res){
-  var data = req.body;
-  data.inicio = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-  console.log(req.body);
-  con.query('SELECT * from usuario where sesion = ?', [data.user_id], (err, resultado) => {
-    console.log(resultado);
-    data.user_id = resultado[0].id;
-    con.query('INSERT INTO viaje SET ?', data, (err, resultado) => {
-      if(err) {console.log(err); res.sendStatus(404)}
-      else{console.log(req.body);  res.sendStatus(200)}
-    });
-  });
-
-  con.query('update usuario set estado = ? where sesion = ?', [1, req.body.user_id])
-}
 
 var login = function(req, res){
   sql = "select * from usuario where user=?";
@@ -55,8 +22,14 @@ var login = function(req, res){
 
 }
 
+var logout = function(req, res){
+	req.session.user = undefined;
+	req.session.estado = undefined;
+	req.session.user_id = undefined;
+	res.redirect('login')
+}
+
 module.exports = {
-  nuevoTicket : nuevoTicket,
-  nuevoViaje: nuevoViaje,
-  login: login
+  login: login,
+	logout: logout
 }
