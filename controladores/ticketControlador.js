@@ -69,6 +69,7 @@ module.exports = function(app){
 
         con.query('select nombre from cliente where id = ?', data.cliente_id, (err, resp)=>{
           data.cliente = resp[0].nombre;
+          // console.log("Datos de mail: ",data)
           mail.notificarTicket(data)
         })
       }
