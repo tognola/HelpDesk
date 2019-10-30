@@ -9,7 +9,7 @@ module.exports = function(app){
       var sql = "select * from viaje order by inicio desc"
       con.query(sql, (err, resultado) => {
         if(!err){
-          var data = {km_inicio: resultado[0].km_fin}
+          var data = {km_inicio: resultado[0] != undefined ? resultado[0].km_fin: 0}
           res.render('viaje/crear', {data:data})
         }
       })
@@ -27,6 +27,9 @@ module.exports = function(app){
     else if(req.session.estado == 2){
       console.log(req.session.estado)
       res.redirect('../tarea/crear')
+    } else{
+      req.session.estado = 0;
+      res.send("Volver a intentar")
     }
   })
 
@@ -50,7 +53,7 @@ module.exports = function(app){
         }
       });
 
- })
+    })
 
  app.post('/viaje/cerrar', (req, res) => {
    isLogged(req, res);
