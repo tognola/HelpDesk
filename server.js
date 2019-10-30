@@ -11,7 +11,7 @@ var tarea = require('./controladores/tareaControlador')
 var app = express();
 app.set('view engine', 'ejs');
 
-app.use(cors()).use(express.urlencoded()).use(express.json());
+app.use(cors()).use(express.urlencoded({ extended: true })).use(express.json());
 
 app.use('/vendor',express.static('vendor'));
 app.use('/css',express.static('css'));

@@ -52,7 +52,7 @@ module.exports = function(app){
       con.query('update ticket set inicio = ? where id = ? and inicio is NULL;', [data.inicio, data.ticket_id], (err)=>{
       if(!err) {
         con.query('update usuario set estado = ? where id = ?', [2, req.session.user_id], (err) =>{
-          if(!err){console.log(req.body); req.session.estado = 2;  res.redirect('../ticket/'+data.ticket_id);}
+          if(!err){console.log(req.body); req.session.estado = 2;  res.redirect('../tarea/crear?ticket_id'+data.ticket_id);}
         })
       }
       else res.sendStatus(404);
@@ -68,7 +68,7 @@ module.exports = function(app){
     var tarea_id = data.tarea;
     delete data.tarea;
     data.fin = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
-    
+
     var resuelto = false;
     if(data.resuelto == 'on'){
       resuelto = true;

@@ -27,6 +27,7 @@
           </div>
         </div>
         <hr>
+        <p>Producto: <%= data.producto %></p>
         <p><%= data.comentario %></p>
         <hr>
       </div>
@@ -48,8 +49,8 @@
 
   </div>
   <div class="card-footer small text-muted">
-    <%= data.producto %>
       <a class="btn btn-primary float-xl-right" role="button" href="../tarea/crear?ticket_id=<%= data.id %>">Agregar tarea</a>
+      <a class="btn btn-primary float-xl-right" role="button" href="../viaje/crear?ticket_id=<%= data.id %>">Agregar viaje</a>
     </div>
 
 </div>
@@ -62,7 +63,6 @@
 
     var listarTareas = function(tareas){
       tareas.forEach((tarea) => {
-        console.log(tarea.accion)
         $("#lista-tareas").append("<li class=\"list-group-item\">"+tarea.accion+"</li>")
       })
     }

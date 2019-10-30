@@ -24,6 +24,20 @@ module.exports = function(app){
     res.render('ticket/nuevo')
   })
 
+  app.get('/ticket/pendiente', (req,res) => {
+    // isLogged(req, res);
+    var sql = "select * from ticket join cliente on cliente_id = cliente.id where inicio is null"
+    var options = {sql: sql, nestTables: true};
+    con.query(options, (err,data) => {
+      if(!err){
+        res.send(data);
+      }else{
+        res.sendStatus(500)
+      }
+    })
+  })
+
+
   app.get('/ticket/:id', (req, res)=>{
     isLogged(req, res);
     var sql = "select * from ticket t join (select id _id, nombre as cliente from cliente) c on t.cliente_id = c._id join (select id _id, nombre as producto from producto) p on t.producto_id=p._id where t.id ="+req.params.id;
@@ -40,6 +54,7 @@ module.exports = function(app){
     })
 
   })
+
 
   app.post('/ticket/nuevo', (req, res) => {
     isLogged(req, res);
