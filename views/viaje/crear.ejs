@@ -18,7 +18,7 @@
       </div>
       <div class="form-group">
         <label for="cliente_id">Cliente</label>
-        <select class="form-control" id="cliente_id" name="cliente_id">
+        <select class="form-control" id="cliente_id" name="cliente_id" >
           <option selected>Elegir...</option>
         </select>
       </div>
@@ -56,10 +56,10 @@
 
     $("#cliente_id").change(() => {
       var cliente = $("#cliente_id").val();
-      fetchCliente(cliente)
+      fetchProducto(cliente)
     });
 
-    var fetchCliente = function(cliente){
+    var fetchProducto= function(cliente){
       fetch("../productos/"+cliente).then((response) => {
         return response.json()
       }).then((data) => {cargarProductos(data)});
@@ -69,7 +69,7 @@
       clientes.forEach((cliente) => {
         $("#cliente_id").append("<option value=\""+cliente.id+"\">"+cliente.nombre+"</option>")
       })
-      <%- data.id == null ? "" : "$(\"#cliente_id\").val("+data.cliente_id+"); fetchCliente("+data.cliente_id+")"
+      <%- data.cliente_id == null ? "" : "$(\"#cliente_id\").val("+data.cliente_id+"); fetchProducto("+data.cliente_id+")"
         %>
     }
 

@@ -40,7 +40,7 @@ module.exports = function(app){
 
   app.get('/ticket/:id', (req, res)=>{
     isLogged(req, res);
-    var sql = "select * from ticket t join (select id _id, nombre as cliente from cliente) c on t.cliente_id = c._id join (select id _id, nombre as producto from producto) p on t.producto_id=p._id where t.id ="+req.params.id;
+    var sql = "select * from ticket t join (select id cliente_id, nombre as cliente from cliente) c on t.cliente_id = c.cliente_id join (select id _id, nombre as producto from producto) p on t.producto_id=p._id where t.id ="+req.params.id;
     console.log(sql)
 
     con.query(sql, (err, data)=>{

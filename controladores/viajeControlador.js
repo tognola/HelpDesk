@@ -12,6 +12,8 @@ module.exports = function(app){
         if(!err){
           var data = {km_inicio: resultado[0] != undefined ? resultado[0].km_fin: 0}
           data.ticket_id = req.query.ticket_id == undefined ? null:req.query.ticket_id;
+          data.cliente_id = req.query.cliente_id == undefined ? null:req.query.cliente_id;
+
           res.render('viaje/crear', {data:data})
         }
       })
