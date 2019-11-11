@@ -37,6 +37,13 @@ module.exports = function(app){
     }
   })
 
+  app.get('/viaje/lista', (req, res) => {
+    var options = {sql: 'select * from viaje join cliente on cliente_id = cliente.id join usuario on user_id = usuario.id', nestTables: true};
+    con.query(options, (err, data)=>{
+      res.render('viaje/lista', {data: data})
+    })
+  });
+
   app.post('/viaje/nuevo', (req, res) => {
     isLogged(req, res);
 

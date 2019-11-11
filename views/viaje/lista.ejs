@@ -1,0 +1,92 @@
+<% include ../header.ejs %>
+
+
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-table"></i>
+    Lista
+    <a class="btn btn-primary float-xl-right" role="button" href="../viaje/crear"><i class="fas fa-plus-square"></i> Viaje</a>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Inicio</th>
+            <th>Fin</th>
+            <th>Cliente</th>
+            <th>Usuario</th>
+            <th>Comentario</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <th>Fecha</th>
+            <th>Inicio</th>
+            <th>Fin</th>
+            <th>Cliente</th>
+            <th>Usuario</th>
+            <th>Comentario</th>
+          </tr>
+        </tfoot>
+        <tbody>
+          <%
+            function leftPad(number, targetLength = 2) {
+                var output = number + '';
+                while (output.length < targetLength) {
+                    output = '0' + output;
+                }
+                return output;
+            }
+           data.forEach(function(renglon){
+            var inicio = new Date(renglon.viaje.inicio);
+            var fin = new Date(renglon.viaje.fin);
+            %>
+            <tr id="<%= renglon.viaje.id %>">
+              <td><%= inicio.toLocaleDateString('es-AR').replace(/-/g,'/') %></td>
+              <td><%= leftPad(inicio.getUTCHours()) +":"+leftPad(inicio.getUTCMinutes()) %></td>
+              <td><%= leftPad(fin.getUTCHours()) +":"+leftPad(fin.getUTCMinutes()) %></td>
+              <td><%= renglon.cliente.nombre %></td>
+              <td><%= renglon.usuario.user %></td>
+              <td><%= renglon.viaje.comentario %></td>
+            </tr>
+          <% }) %>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer small text-muted"></div>
+</div>
+
+
+
+
+<% include ../footer.ejs %>
+<script type="text/javascript">
+  var tabla = $('#dataTable').DataTable({
+    "buttons": [
+            'csv'
+        ],
+        "order": [[ 0, "desc" ]],
+        "language": {
+        "lengthMenu": "_MENU_ filas",
+        "info": "Ver página _PAGE_ de _PAGES_",
+        "search": "Buscar:",
+        "paginate": {
+        "first":      "Primera",
+        "last":       "Última",
+        "next":       ">>",
+        "previous":   "<<"
+    },
+    }
+    } );
+
+    // tabla.columns( 2 ).visible( false );
+
+    tabla.columns.adjust().draw( );
+   //  $('#dataTable tbody').on( 'click', 'tr', function () {
+   //   window.location.href = "/ticket/"+tabla.row( this ).node().id;
+   // } );
+</script>
