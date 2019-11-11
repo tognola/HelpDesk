@@ -45,8 +45,8 @@
             %>
             <tr id="<%= renglon.viaje.id %>">
               <td><%= inicio.toLocaleDateString('es-AR').replace(/-/g,'/') %></td>
-              <td><%= leftPad(inicio.getUTCHours()) +":"+leftPad(inicio.getUTCMinutes()) %></td>
-              <td><%= leftPad(fin.getUTCHours()) +":"+leftPad(fin.getUTCMinutes()) %></td>
+              <td><%= leftPad(inicio.getHours()) +":"+leftPad(inicio.getMinutes()) %></td>
+              <td><%= leftPad(fin.getHours()) +":"+leftPad(fin.getMinutes()) %></td>
               <td><%= renglon.cliente.nombre %></td>
               <td><%= renglon.usuario.user %></td>
               <td><%= renglon.viaje.comentario %></td>
