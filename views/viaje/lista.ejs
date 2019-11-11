@@ -15,6 +15,8 @@
             <th>Fecha</th>
             <th>Inicio</th>
             <th>Fin</th>
+            <th>Km. Inicio</th>
+            <th>Km. Fin</th>
             <th>Cliente</th>
             <th>Usuario</th>
             <th>Comentario</th>
@@ -25,6 +27,8 @@
             <th>Fecha</th>
             <th>Inicio</th>
             <th>Fin</th>
+            <th>Km. Inicio</th>
+            <th>Km. Fin</th>
             <th>Cliente</th>
             <th>Usuario</th>
             <th>Comentario</th>
@@ -47,6 +51,8 @@
               <td><%= inicio.toLocaleDateString('es-AR').replace(/-/g,'/') %></td>
               <td><%= leftPad(inicio.getHours()) +":"+leftPad(inicio.getMinutes()) %></td>
               <td><%= leftPad(fin.getHours()) +":"+leftPad(fin.getMinutes()) %></td>
+              <td><%= renglon.viaje.km_inicio %></td>
+              <td><%= renglon.viaje.km_fin %></td>
               <td><%= renglon.cliente.nombre %></td>
               <td><%= renglon.usuario.user %></td>
               <td><%= renglon.viaje.comentario %></td>
