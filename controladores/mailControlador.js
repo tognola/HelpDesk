@@ -12,7 +12,7 @@ var notificarTicket = function(ticket){
   });
   const mailOptions = {
   from: 'backupmodulab@gmail.com', // sender address
-  to: 'gtognola@wmargentina.com.ar, dvinokur@wmargentina.com.ar', // list of receivers
+  to: 'gtognola@wmargentina.com.ar, dvinokur@wmargentina.com.ar, mduran@wmargentina.com.ar', // list of receivers
   subject: '['+ticket.cliente+'] '+ticket.titulo, // Subject line
   html: '<p>Comentario: <br />'+ticket.comentario+'</p> <br /> <a href=\"http://wmdesk.ddns.net/ticket/'+ticket.ticket_id+'\">Ver ticket</a> '// plain text body
   };

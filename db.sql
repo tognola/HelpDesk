@@ -19,6 +19,12 @@
 -- Table structure for table `cliente`
 --
 
+/**** mods ******/
+alter table usuario rename column sesion to email;
+alter table usuario add column cliente_id int;
+alter table usuario add foreign key (cliente_id) references cliente(id);
+/**** *****/
+
 DROP TABLE IF EXISTS `cliente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
@@ -188,7 +194,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Gaston','Tognola','tognola','451320',1,'a9a2edafae30e0da4602384574b5364d','2');
+INSERT INTO `usuario` VALUES (2,'Hopital','Pirovano','pirovano','123',2,'a9a2edafae30e0da4602384574b5364d','2', 1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 

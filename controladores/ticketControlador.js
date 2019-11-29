@@ -7,7 +7,13 @@ module.exports = function(app){
     var resultado;
     sql = "select ticket.id, ticket.titulo, ticket.inicio, ticket.fin, ticket.fecha_creacion, producto.nombre as producto, cliente.nombre as cliente \
       from ticket join cliente on ticket.cliente_id = cliente.id \
-      join producto on ticket.producto_id = producto.id order by ticket.fecha_creacion desc";
+      join producto on ticket.producto_id = producto.id";
+
+      if(req.session.permiso == 2){
+        sql += " where cliente.id = "+req.session.cliente_id;
+      }
+
+      sql += " order by ticket.fecha_creacion desc";
 
       con.query(sql, (err,data) => {
       data.forEach((elem) => {
@@ -15,13 +21,13 @@ module.exports = function(app){
         elem.fecha = new Date(elem.fecha_creacion);
       })
 
-      res.render('ticket/lista', {data: data});
+      res.render('ticket/lista', {data: data, usuario: req.session});
     })
   });
 
   app.get('/ticket/nuevo', (req, res) => {
     isLogged(req, res);
-    res.render('ticket/nuevo')
+    res.render('ticket/nuevo', {usuario: req.session})
   })
 
   app.get('/ticket/pendiente', (req,res) => {
@@ -48,7 +54,7 @@ module.exports = function(app){
         console.log(data[0])
         data[0].estado = data[0].inicio === null ? "Pendiente" : data[0].fin === null ? 'Abierto' : 'Resuelto';
         data[0].fecha = (new Date(data[0].fecha_creacion)).toLocaleString().split(",")[0];
-        res.render('ticket/ticket', {data:data[0]})
+        res.render('ticket/ticket', {data:data[0], usuario: req.session})
       }
 
     })

@@ -13,6 +13,7 @@ var login = function(req, res){
 				req.session.user_id = resultado[0].id;
 				req.session.estado = resultado[0].estado;
 				req.session.permiso = resultado[0].permiso;
+        req.session.cliente_id = resultado[0].cliente_id;
         res.sendStatus(400)
       }
     }else{

@@ -14,7 +14,7 @@ module.exports = function(app){
           data.ticket_id = req.query.ticket_id == undefined ? null:req.query.ticket_id;
           data.cliente_id = req.query.cliente_id == undefined ? null:req.query.cliente_id;
 
-          res.render('viaje/crear', {data:data})
+          res.render('viaje/crear', {data:data, usuario: req.session})
         }
       })
 
@@ -24,7 +24,7 @@ module.exports = function(app){
       con.query(sql, [req.session.user_id], (err, resultado)=>{
         if(!err){
           console.log(resultado[0])
-          res.render('viaje/crear', {data: resultado[0]})
+          res.render('viaje/crear', {data: resultado[0], usuario: req.session})
         }
       })
     }
@@ -40,7 +40,7 @@ module.exports = function(app){
   app.get('/viaje/lista', (req, res) => {
     var options = {sql: 'select * from viaje join cliente on cliente_id = cliente.id join usuario on user_id = usuario.id', nestTables: true};
     con.query(options, (err, data)=>{
-      res.render('viaje/lista', {data: data})
+      res.render('viaje/lista', {data: data, usuario: req.session})
     })
   });
 

@@ -10,7 +10,7 @@ module.exports = function(app){
 
 
     if(req.session.estado == 0){
-      res.render('tarea/nuevo', {data: data})
+      res.render('tarea/nuevo', {data: data, usuario: req.session})
 
     }else if(req.session.estado == 2)
     {
@@ -18,7 +18,7 @@ module.exports = function(app){
       con.query(sql, [req.session.user_id], (err, resultado)=>{
         if(!err){
           console.log(resultado[0])
-          res.render('tarea/nuevo', {data: resultado[0]})
+          res.render('tarea/nuevo', {data: resultado[0], usuario: req.session})
         }
       })
     }

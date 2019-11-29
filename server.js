@@ -1,5 +1,6 @@
 var express = require('express');
 var cors = require('cors');
+var con = require('./controladores/bd');
 var session = require('express-session')
 var api = require('./controladores/listas')
 var cargar = require('./controladores/cargar')
@@ -33,10 +34,12 @@ app.get('/', function(req,res){
     res.redirect('/login')
     console.log(req.session.user)
   }else{
-    res.redirect('../ticket');
+    // if(req.session.permiso == 1)
+      res.redirect('../ticket');
     console.log(req.session)
   }
 })
+
 
 app.get('/login', (req, res) => {
   res.render('login')
@@ -51,6 +54,29 @@ app.get('/clientes', api.listarClientes)
 app.post('/login', cargar.login);
 app.get('/logout', cargar.logout);
 
+app.use((req, res, next) => {
+  if(res.session != undefined){
+    if(res.session.user != undefined){
+      sql = "select * from usuario where user=?";
+      data = [req.body.user]
+      con.query(sql, data, (err, resultado)=>{
+        if(!err){
+          if(resultado.length !==0){
+            req.session.user = resultado[0].user;
+            req.session.user_id = resultado[0].id;
+            req.session.estado = resultado[0].estado;
+            req.session.permiso = resultado[0].permiso;
+            req.session.cliente_id = resultado[0].cliente_id;
+            next();
+            // res.sendStatus(400)
+          }
+        }else{
+          console.log(sql,err)
+        }
+      });
+    }
+  }
+})
 
 app.listen(89, function(){
   console.log("Servidor corriendo en puerto 89")
